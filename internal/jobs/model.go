@@ -1,7 +1,6 @@
 package jobs
 
 import (
-	"errors"
 	"time"
 
 	"github.com/google/uuid"
@@ -16,14 +15,11 @@ type Job struct {
 	EndedAt   time.Time
 }
 
-func NewJob(command string) (*Job, error) {
-	if command == "" {
-		return nil, errors.New("command is not provided")
-	}
+func NewJob(command string) *Job {
 	job := Job{
 		JobID:     uuid.New(),
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
-	return &job, nil
+	return &job
 }
