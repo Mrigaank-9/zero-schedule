@@ -2,13 +2,15 @@ package memory
 
 import (
 	"context"
+
+	"github.com/Mrigaank-9/job-scheduler/internal/queue"
 )
 
 type MemoryQueue struct {
 	Jobs chan string
 }
 
-func NewQueue() *MemoryQueue {
+func NewQueue() queue.Queue {
 	jobChan := make(chan string)
 	return &MemoryQueue{Jobs: jobChan}
 }
