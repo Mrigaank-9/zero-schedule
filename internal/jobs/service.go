@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"strconv"
 
 	"github.com/Mrigaank-9/job-scheduler/internal/database"
 	"github.com/Mrigaank-9/job-scheduler/internal/queue"
@@ -20,10 +19,12 @@ func CreateJob(ctx context.Context, db database.Database, name string, command s
 		return errors.New("name not provided")
 	}
 	job := types.NewJob(name, command)
-	jobId := strconv.FormatUint(uint64(job.JobID.ID()), 10)
-	repositiory.CreateJob(ctx, db, job)
-	err := jobQueue.Publish(ctx, jobId)
-	if err != nil {
+	jobId := job.JobID.String()
+	if err := repositiory.CreateJob(ctx, db, job); err != nil {
+		return err
+	}
+
+	if err := jobQueue.Publish(ctx, jobId); err != nil {
 		return err
 	}
 	fmt.Println("Created Job as Job Id: ", jobId)

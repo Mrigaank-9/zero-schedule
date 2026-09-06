@@ -11,7 +11,7 @@ type MemoryQueue struct {
 }
 
 func NewQueue() queue.Queue {
-	jobChan := make(chan string)
+	jobChan := make(chan string, 1024)
 	return &MemoryQueue{Jobs: jobChan}
 }
 
