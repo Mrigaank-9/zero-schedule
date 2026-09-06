@@ -37,3 +37,8 @@ func NewJob(name string, command string) *Job {
 	}
 	return &job
 }
+
+type RequestJobcreation struct {
+	Name    string
+	Command string
+}
