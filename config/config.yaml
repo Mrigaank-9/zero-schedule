@@ -1,0 +1,6 @@
+version: 1.0.0
+env: dev
+
+app:
+  address: localhost:8082
+  workers: 4
