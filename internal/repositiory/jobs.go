@@ -37,7 +37,7 @@ func CreateJob(ctx context.Context, db database.Database, job *types.Job) error 
 	_, err := db.Exec(
 		ctx,
 		query,
-		job.JobID.ID(),
+		job.JobID.String(),
 		job.Name,
 		job.Command,
 		job.Status,
@@ -88,7 +88,7 @@ func UpdateStatus(ctx context.Context, db database.Database, job *types.Job, sta
 		UPDATE jobs SET status = ?,  updated_at = ? 
 		WHERE id = ? 
 	`
-	result, err := db.Exec(ctx, query, status, job.UpdatedAt, job.JobID.ID())
+	result, err := db.Exec(ctx, query, status, job.UpdatedAt, job.JobID.String())
 	if err != nil {
 		return err
 	}
@@ -112,7 +112,7 @@ func UpdateStartedAt(ctx context.Context, db database.Database, job *types.Job) 
 		UPDATE jobs SET started_at = ?,  updated_at = ? 
 		WHERE id = ? 
 	`
-	result, err := db.Exec(ctx, query, job.StartedAt, job.UpdatedAt, job.JobID.ID())
+	result, err := db.Exec(ctx, query, job.StartedAt, job.UpdatedAt, job.JobID.String())
 	if err != nil {
 		return err
 	}
@@ -136,7 +136,7 @@ func UpdateEndedAt(ctx context.Context, db database.Database, job *types.Job) er
 		UPDATE jobs SET ended_at = ?,  updated_at = ? 
 		WHERE id = ? 
 	`
-	result, err := db.Exec(ctx, query, job.EndedAt, job.UpdatedAt, job.JobID.ID())
+	result, err := db.Exec(ctx, query, job.EndedAt, job.UpdatedAt, job.JobID.String())
 	if err != nil {
 		return err
 	}

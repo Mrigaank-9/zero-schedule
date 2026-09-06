@@ -42,8 +42,7 @@ func work(ctx context.Context, workerId int64, wg *sync.WaitGroup, jobQueue queu
 		}
 
 		// Spawn subprocess
-		cmd := exec.Command(job.Command)
-
+		cmd := exec.Command("sh", "-c", job.Command)
 		if err := cmd.Start(); err != nil {
 			slog.Error("unable to start job process", slog.String("job-id", jobId), slog.String("error", err.Error()))
 
